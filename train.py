@@ -137,7 +137,7 @@ def train_main(dataset,
 
         saver = tf.train.Saver(
             var_list=train_vars,
-            max_to_keep=5,
+            max_to_keep=10,
             keep_checkpoint_every_n_hours=2)
         sess.run(tf.global_variables_initializer())
 
