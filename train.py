@@ -213,7 +213,7 @@ def train_main(dataset,
                 if counter % sample_every == 0:
                     generate_samples()
 
-                batch = [data_sampler.sample(1024) for _ in range(batch_size)]
+                batch = [data_sampler.sample(128) for _ in range(batch_size)]
 
                 _, lv = sess.run((opt, loss), feed_dict={context: batch})
 
