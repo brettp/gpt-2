@@ -15,7 +15,7 @@ import model, sample, encoder
 CHECKPOINT_DIR = os.environ.get('CHECKPOINT_DIR', 'checkpoint')
 SAMPLE_DIR = os.environ.get('SAMPLE_DIR', 'samples')
 MAX_TO_KEEP = int(os.environ.get('MAX_TO_KEEP', 10))
-CHECKPOINT_EVERY_N_HOURS = int(os.environ('CHECKPOINT_EVERY_N_HOURS', 2))
+CHECKPOINT_EVERY_N_HOURS = int(os.environ.get('CHECKPOINT_EVERY_N_HOURS', 2))
 DATA_SAMPLE_SIZE = int(os.environ.get('DATA_SAMPLE_SIZE', 96))
 
 def maketree(path):
