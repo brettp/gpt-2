@@ -8,12 +8,13 @@ import os
 import numpy as np
 import tensorflow as tf
 import random
-import time
 
 import model, sample, encoder
 
 CHECKPOINT_DIR = 'checkpoint'
 SAMPLE_DIR = 'samples'
+MAX_TO_KEEP = 10
+DATA_SAMPLE_SIZE = 96
 
 
 def maketree(path):
@@ -137,7 +138,7 @@ def train_main(dataset,
 
         saver = tf.train.Saver(
             var_list=train_vars,
-            max_to_keep=10,
+            max_to_keep=MAX_TO_KEEP,
             keep_checkpoint_every_n_hours=2)
         sess.run(tf.global_variables_initializer())
 
@@ -207,13 +208,15 @@ def train_main(dataset,
         start_time = time.time()
 
         try:
+            saved_count = 0
             while True:
                 if counter % save_every == 0:
                     save()
+                    saved_count += 1
                 if counter % sample_every == 0:
                     generate_samples()
 
-                batch = [data_sampler.sample(128) for _ in range(batch_size)]
+                batch = [data_sampler.sample(DATA_SAMPLE_SIZE) for _ in range(batch_size)]
 
                 _, lv = sess.run((opt, loss), feed_dict={context: batch})
 
@@ -228,6 +231,11 @@ def train_main(dataset,
                         avg=avg_loss[0] / avg_loss[1]))
 
                 counter += 1
+
+                if saved_count >= MAX_TO_KEEP:
+                    break
+
+
         except KeyboardInterrupt:
             print('interrupted')
             save()
