@@ -12,15 +12,11 @@ import time
 
 import model, sample, encoder
 
-CHECKPOINT_DIR = 'checkpoint'
-SAMPLE_DIR = 'samples'
+CHECKPOINT_DIR = os.environ.get('CHECKPOINT_DIR', 'checkpoint')
+SAMPLE_DIR = os.environ.get('SAMPLE_DIR', 'samples')
 MAX_TO_KEEP = int(os.environ.get('MAX_TO_KEEP', 10))
+CHECKPOINT_EVERY_N_HOURS = int(os.environ('CHECKPOINT_EVERY_N_HOURS', 2))
 DATA_SAMPLE_SIZE = int(os.environ.get('DATA_SAMPLE_SIZE', 96))
-
-print("Max to keep: {}".format(MAX_TO_KEEP))
-print("Data sample size: {}".format(DATA_SAMPLE_SIZE))
-
-exit
 
 def maketree(path):
     try:
@@ -144,7 +140,7 @@ def train_main(dataset,
         saver = tf.train.Saver(
             var_list=train_vars,
             max_to_keep=MAX_TO_KEEP,
-            keep_checkpoint_every_n_hours=2)
+            keep_checkpoint_every_n_hours=CHECKPOINT_EVERY_N_HOURS)
         sess.run(tf.global_variables_initializer())
 
         if restore_from == 'latest':
