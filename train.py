@@ -233,10 +233,6 @@ def train_main(dataset,
 
                 counter += 1
 
-                if saved_count >= MAX_TO_KEEP:
-                    break
-
-
         except KeyboardInterrupt:
             print('interrupted')
             save()
