@@ -14,9 +14,8 @@ import model, sample, encoder
 
 CHECKPOINT_DIR = 'checkpoint'
 SAMPLE_DIR = 'samples'
-MAX_TO_KEEP = 10
-DATA_SAMPLE_SIZE = 96
-
+MAX_TO_KEEP = os.environ.get('MAX_TO_KEE', 10)
+DATA_SAMPLE_SIZE = os.environ.get('DATA_SAMPLE_SIZE', 96)
 
 def maketree(path):
     try:
