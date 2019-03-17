@@ -8,6 +8,7 @@ import os
 import numpy as np
 import tensorflow as tf
 import random
+import time
 
 import model, sample, encoder
 
