@@ -13,8 +13,11 @@ import model, sample, encoder
 from load_dataset import load_dataset, Sampler
 from accumulate import AccumulatingOptimizer
 
-CHECKPOINT_DIR = 'checkpoint'
-SAMPLE_DIR = 'samples'
+CHECKPOINT_DIR = os.environ.get('CHECKPOINT_DIR', 'checkpoint')
+SAMPLE_DIR = os.environ.get('SAMPLE_DIR', 'samples')
+MAX_TO_KEEP = int(os.environ.get('MAX_TO_KEEP', 5))
+CHECKPOINT_EVERY_N_HOURS = int(os.environ.get('CHECKPOINT_EVERY_N_HOURS', 2))
+DATA_SAMPLE_SIZE = int(os.environ.get('DATA_SAMPLE_SIZE', 96))
 
 
 parser = argparse.ArgumentParser(
